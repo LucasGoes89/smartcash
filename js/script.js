@@ -1,0 +1,1 @@
+console.log("SmartCash iniciado com sucesso 🚀");
