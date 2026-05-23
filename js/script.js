@@ -1,10 +1,17 @@
-// ===== ARRAY DE TRANSAÇÕES =====
+// ======================================================
+// ARRAYS
+// ======================================================
+
+// ===== TRANSAÇÕES =====
 const transacoes = [];
 
-// ===== ARRAY DE METAS =====
+// ===== METAS =====
 const metas = [];
 
-// ===== ELEMENTOS FORMULÁRIO =====
+// ======================================================
+// ELEMENTOS FORMULÁRIO
+// ======================================================
+
 const form =
   document.getElementById("form-transacao");
 
@@ -17,11 +24,17 @@ const valorInput =
 const tipoInput =
   document.getElementById("tipo");
 
-// ===== LISTA TRANSAÇÕES =====
+// ======================================================
+// LISTA TRANSAÇÕES
+// ======================================================
+
 const listaTransacoes =
   document.getElementById("lista-transacoes");
 
-// ===== RESUMO =====
+// ======================================================
+// RESUMO FINANCEIRO
+// ======================================================
+
 const totalReceitas =
   document.getElementById("total-receitas");
 
@@ -31,7 +44,10 @@ const totalDespesas =
 const saldoTotal =
   document.getElementById("saldo-total");
 
-// ===== ELEMENTOS METAS =====
+// ======================================================
+// METAS
+// ======================================================
+
 const nomeMeta =
   document.getElementById("nome-meta");
 
@@ -44,7 +60,17 @@ const btnCriarMeta =
 const listaMetas =
   document.getElementById("lista-metas");
 
-// ===== GRÁFICO =====
+// ======================================================
+// LIMPAR DADOS
+// ======================================================
+
+const btnLimpar =
+  document.getElementById("btn-limpar");
+
+// ======================================================
+// GRÁFICO
+// ======================================================
+
 let grafico;
 
 // ======================================================
@@ -53,9 +79,10 @@ let grafico;
 
 form.addEventListener("submit", function(event) {
 
+  // ===== EVITA RECARREGAR =====
   event.preventDefault();
 
-  // ===== CAPTURA DADOS =====
+  // ===== DADOS =====
   const descricao =
     descricaoInput.value;
 
@@ -90,12 +117,15 @@ form.addEventListener("submit", function(event) {
   // ===== ADICIONA =====
   transacoes.push(novaTransacao);
 
-  // ===== ATUALIZA =====
+  // ===== RENDERIZA =====
   renderizarTransacoes();
 
   atualizarResumo();
 
-  // ===== LIMPA FORM =====
+  // ===== SALVA =====
+  salvarDados();
+
+  // ===== LIMPA =====
   form.reset();
 
 });
@@ -106,13 +136,13 @@ form.addEventListener("submit", function(event) {
 
 function renderizarTransacoes() {
 
-  // ===== LIMPA LISTA =====
+  // ===== LIMPA =====
   listaTransacoes.innerHTML = "";
 
   // ===== PERCORRE =====
   transacoes.forEach(function(transacao) {
 
-    // ===== CRIA DIV =====
+    // ===== DIV =====
     const div =
       document.createElement("div");
 
@@ -170,7 +200,7 @@ function renderizarTransacoes() {
 
 function excluirTransacao(id) {
 
-  // ===== BUSCA ÍNDICE =====
+  // ===== ÍNDICE =====
   const indice =
     transacoes.findIndex(
       transacao => transacao.id === id
@@ -184,10 +214,13 @@ function excluirTransacao(id) {
 
   atualizarResumo();
 
+  // ===== SALVA =====
+  salvarDados();
+
 }
 
 // ======================================================
-// ATUALIZA RESUMO
+// RESUMO FINANCEIRO
 // ======================================================
 
 function atualizarResumo() {
@@ -196,7 +229,8 @@ function atualizarResumo() {
   const receitas = transacoes
 
     .filter(
-      transacao => transacao.tipo === "entrada"
+      transacao =>
+        transacao.tipo === "entrada"
     )
 
     .reduce((acc, transacao) => {
@@ -209,7 +243,8 @@ function atualizarResumo() {
   const despesas = transacoes
 
     .filter(
-      transacao => transacao.tipo === "saida"
+      transacao =>
+        transacao.tipo === "saida"
     )
 
     .reduce((acc, transacao) => {
@@ -222,7 +257,7 @@ function atualizarResumo() {
   const saldo =
     receitas - despesas;
 
-  // ===== ATUALIZA CARDS =====
+  // ===== ATUALIZA =====
   totalReceitas.textContent =
     `R$ ${receitas.toFixed(2)}`;
 
@@ -232,8 +267,11 @@ function atualizarResumo() {
   saldoTotal.textContent =
     `R$ ${saldo.toFixed(2)}`;
 
-  // ===== ATUALIZA GRÁFICO =====
-  atualizarGrafico(receitas, despesas);
+  // ===== GRÁFICO =====
+  atualizarGrafico(
+    receitas,
+    despesas
+  );
 
 }
 
@@ -241,8 +279,12 @@ function atualizarResumo() {
 // GRÁFICO
 // ======================================================
 
-function atualizarGrafico(receitas, despesas) {
+function atualizarGrafico(
+  receitas,
+  despesas
+) {
 
+  // ===== CANVAS =====
   const ctx =
     document.getElementById(
       "grafico-financeiro"
@@ -309,9 +351,14 @@ btnCriarMeta.addEventListener("click", function() {
     Number(objetivoMeta.value);
 
   // ===== VALIDAÇÃO =====
-  if (nome === "" || objetivo <= 0) {
+  if (
+    nome === "" ||
+    objetivo <= 0
+  ) {
 
-    alert("Preencha os campos corretamente.");
+    alert(
+      "Preencha os campos corretamente."
+    );
 
     return;
 
@@ -336,6 +383,9 @@ btnCriarMeta.addEventListener("click", function() {
   // ===== RENDERIZA =====
   renderizarMetas();
 
+  // ===== SALVA =====
+  salvarDados();
+
   // ===== LIMPA =====
   nomeMeta.value = "";
 
@@ -359,10 +409,11 @@ function renderizarMetas() {
     const porcentagem =
       (meta.guardado / meta.objetivo) * 100;
 
-    // ===== CRIA DIV =====
+    // ===== DIV =====
     const div =
       document.createElement("div");
 
+    // ===== CLASSE =====
     div.classList.add("item-meta");
 
     // ===== HTML =====
@@ -392,7 +443,8 @@ function renderizarMetas() {
       </div>
 
       <p>
-        ${porcentagem.toFixed(1)}% concluído
+        ${porcentagem.toFixed(1)}%
+        concluído
       </p>
 
       <div class="acoes-meta">
@@ -454,7 +506,115 @@ function guardarValor(id) {
   // ===== ADICIONA =====
   meta.guardado += valor;
 
+  // ===== ATUALIZA =====
+  renderizarMetas();
+
+  // ===== SALVA =====
+  salvarDados();
+
+}
+
+// ======================================================
+// SALVAR DADOS
+// ======================================================
+
+function salvarDados() {
+
+  // ===== TRANSAÇÕES =====
+  localStorage.setItem(
+    "transacoes",
+    JSON.stringify(transacoes)
+  );
+
+  // ===== METAS =====
+  localStorage.setItem(
+    "metas",
+    JSON.stringify(metas)
+  );
+
+}
+
+// ======================================================
+// CARREGAR DADOS
+// ======================================================
+
+function carregarDados() {
+
+  // ===== TRANSAÇÕES =====
+  const transacoesSalvas =
+    localStorage.getItem("transacoes");
+
+  // ===== METAS =====
+  const metasSalvas =
+    localStorage.getItem("metas");
+
+  // ===== VERIFICA =====
+  if (transacoesSalvas) {
+
+    const dados =
+      JSON.parse(transacoesSalvas);
+
+    transacoes.push(...dados);
+
+  }
+
+  // ===== VERIFICA =====
+  if (metasSalvas) {
+
+    const dados =
+      JSON.parse(metasSalvas);
+
+    metas.push(...dados);
+
+  }
+
   // ===== RENDERIZA =====
+  renderizarTransacoes();
+
+  atualizarResumo();
+
   renderizarMetas();
 
 }
+
+// ======================================================
+// LIMPAR DADOS
+// ======================================================
+
+btnLimpar.addEventListener("click", function() {
+
+  // ===== CONFIRMA =====
+  const confirmar =
+    confirm(
+      "Deseja realmente apagar todos os dados?"
+    );
+
+  // ===== CANCELA =====
+  if (!confirmar) {
+
+    return;
+
+  }
+
+  // ===== LIMPA ARRAYS =====
+  transacoes.length = 0;
+
+  metas.length = 0;
+
+  // ===== LIMPA STORAGE =====
+  localStorage.clear();
+
+  // ===== ATUALIZA =====
+  renderizarTransacoes();
+
+  atualizarResumo();
+
+  renderizarMetas();
+
+});
+
+// ======================================================
+// INICIAR SISTEMA
+// ======================================================
+
+carregarDados();

@@ -414,3 +414,17 @@ footer {
 .acoes-meta input {
   flex: 1;
 }
+
+/* ===== LIMPAR DADOS ===== */
+#limpar-dados {
+  text-align: center;
+  margin: 40px 0;
+}
+
+#btn-limpar {
+  background: #ef4444;
+}
+
+#btn-limpar:hover {
+  background: #dc2626;
+}
