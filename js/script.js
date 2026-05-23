@@ -1,55 +1,69 @@
 // ===== ARRAY DE TRANSAÇÕES =====
 const transacoes = [];
 
-// ===== ELEMENTOS DO FORMULÁRIO =====
-const form = document.getElementById("form-transacao");
+// ===== ARRAY DE METAS =====
+const metas = [];
 
-const descricaoInput = document.getElementById("descricao");
-const valorInput = document.getElementById("valor");
-const tipoInput = document.getElementById("tipo");
+// ===== ELEMENTOS FORMULÁRIO =====
+const form =
+  document.getElementById("form-transacao");
 
-// ===== ELEMENTOS DA LISTA =====
-const listaTransacoes = document.getElementById("lista-transacoes");
+const descricaoInput =
+  document.getElementById("descricao");
 
-// ===== ELEMENTOS DOS CARDS =====
-const totalReceitas = document.getElementById("total-receitas");
-const totalDespesas = document.getElementById("total-despesas");
-const saldoTotal = document.getElementById("saldo-total");
+const valorInput =
+  document.getElementById("valor");
 
-// ===== ELEMENTOS DA META =====
-const metaInput = document.getElementById("meta-input");
-const btnMeta = document.getElementById("btn-meta");
+const tipoInput =
+  document.getElementById("tipo");
 
-const metaValor = document.getElementById("meta-valor");
-const metaStatus = document.getElementById("meta-status");
+// ===== LISTA TRANSAÇÕES =====
+const listaTransacoes =
+  document.getElementById("lista-transacoes");
 
-const valorCofrinho =
-  document.getElementById("valor-cofrinho");
+// ===== RESUMO =====
+const totalReceitas =
+  document.getElementById("total-receitas");
 
-const btnGuardar =
-  document.getElementById("btn-guardar");
+const totalDespesas =
+  document.getElementById("total-despesas");
 
-const valorGuardadoTexto =
-  document.getElementById("valor-guardado");
+const saldoTotal =
+  document.getElementById("saldo-total");
 
-// ===== VARIÁVEIS =====
-let metaFinanceira = 0;
+// ===== ELEMENTOS METAS =====
+const nomeMeta =
+  document.getElementById("nome-meta");
 
-let valorGuardado = 0;
+const objetivoMeta =
+  document.getElementById("objetivo-meta");
 
+const btnCriarMeta =
+  document.getElementById("btn-criar-meta");
+
+const listaMetas =
+  document.getElementById("lista-metas");
+
+// ===== GRÁFICO =====
 let grafico;
 
-// ===== EVENTO DO FORM =====
+// ======================================================
+// EVENTO FORMULÁRIO
+// ======================================================
+
 form.addEventListener("submit", function(event) {
 
   event.preventDefault();
 
   // ===== CAPTURA DADOS =====
-  const descricao = descricaoInput.value;
+  const descricao =
+    descricaoInput.value;
 
-  const valor = Number(valorInput.value);
+  const valor =
+    Number(valorInput.value);
 
-  const tipo = tipoInput.value;
+  const tipo =
+    tipoInput.value;
 
   // ===== VALIDAÇÃO =====
   if (descricao === "" || valor <= 0) {
@@ -57,6 +71,7 @@ form.addEventListener("submit", function(event) {
     alert("Preencha os campos corretamente.");
 
     return;
+
   }
 
   // ===== NOVA TRANSAÇÃO =====
@@ -72,10 +87,10 @@ form.addEventListener("submit", function(event) {
 
   };
 
-  // ===== ADICIONA NO ARRAY =====
+  // ===== ADICIONA =====
   transacoes.push(novaTransacao);
 
-  // ===== ATUALIZA TELA =====
+  // ===== ATUALIZA =====
   renderizarTransacoes();
 
   atualizarResumo();
@@ -85,65 +100,104 @@ form.addEventListener("submit", function(event) {
 
 });
 
-// ===== RENDERIZA TRANSAÇÕES =====
+// ======================================================
+// RENDERIZA TRANSAÇÕES
+// ======================================================
+
 function renderizarTransacoes() {
 
   // ===== LIMPA LISTA =====
   listaTransacoes.innerHTML = "";
 
-  // ===== PERCORRE ARRAY =====
+  // ===== PERCORRE =====
   transacoes.forEach(function(transacao) {
 
     // ===== CRIA DIV =====
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
     // ===== CLASSES =====
     div.classList.add("transacao");
 
     div.classList.add(transacao.tipo);
 
-    // ===== HTML INTERNO =====
+    // ===== HTML =====
     div.innerHTML = `
 
-  <div>
-    <h3>${transacao.descricao}</h3>
+      <div>
 
-    <p>R$ ${transacao.valor.toFixed(2)}</p>
-  </div>
+        <h3>
+          ${transacao.descricao}
+        </h3>
 
-  <div class="acoes-transacao">
+        <p>
+          R$ ${transacao.valor.toFixed(2)}
+        </p>
 
-    <span>
-      ${transacao.tipo === "entrada"
-        ? "🟢 Entrada"
-        : "🔴 Saída"}
-    </span>
+      </div>
 
-    <button
-      class="btn-excluir"
-      onclick="excluirTransacao(${transacao.id})"
-    >
-      Excluir
-    </button>
+      <div class="acoes-transacao">
 
-  </div>
+        <span>
 
-`;
+          ${transacao.tipo === "entrada"
+            ? "🟢 Entrada"
+            : "🔴 Saída"}
 
-    // ===== ADICIONA NA LISTA =====
+        </span>
+
+        <button
+          class="btn-excluir"
+          onclick="excluirTransacao(${transacao.id})"
+        >
+          Excluir
+        </button>
+
+      </div>
+
+    `;
+
+    // ===== ADICIONA =====
     listaTransacoes.appendChild(div);
 
   });
 
 }
 
-// ===== ATUALIZA RESUMO =====
+// ======================================================
+// EXCLUI TRANSAÇÃO
+// ======================================================
+
+function excluirTransacao(id) {
+
+  // ===== BUSCA ÍNDICE =====
+  const indice =
+    transacoes.findIndex(
+      transacao => transacao.id === id
+    );
+
+  // ===== REMOVE =====
+  transacoes.splice(indice, 1);
+
+  // ===== ATUALIZA =====
+  renderizarTransacoes();
+
+  atualizarResumo();
+
+}
+
+// ======================================================
+// ATUALIZA RESUMO
+// ======================================================
+
 function atualizarResumo() {
 
-  // ===== SOMA RECEITAS =====
+  // ===== RECEITAS =====
   const receitas = transacoes
 
-    .filter(transacao => transacao.tipo === "entrada")
+    .filter(
+      transacao => transacao.tipo === "entrada"
+    )
 
     .reduce((acc, transacao) => {
 
@@ -151,10 +205,12 @@ function atualizarResumo() {
 
     }, 0);
 
-  // ===== SOMA DESPESAS =====
+  // ===== DESPESAS =====
   const despesas = transacoes
 
-    .filter(transacao => transacao.tipo === "saida")
+    .filter(
+      transacao => transacao.tipo === "saida"
+    )
 
     .reduce((acc, transacao) => {
 
@@ -163,7 +219,8 @@ function atualizarResumo() {
     }, 0);
 
   // ===== SALDO =====
-  const saldo = receitas - despesas;
+  const saldo =
+    receitas - despesas;
 
   // ===== ATUALIZA CARDS =====
   totalReceitas.textContent =
@@ -178,25 +235,27 @@ function atualizarResumo() {
   // ===== ATUALIZA GRÁFICO =====
   atualizarGrafico(receitas, despesas);
 
-  // ===== ATUALIZA META =====
-  atualizarMeta();
-
 }
 
-// ===== GRÁFICO =====
+// ======================================================
+// GRÁFICO
+// ======================================================
+
 function atualizarGrafico(receitas, despesas) {
 
   const ctx =
-    document.getElementById("grafico-financeiro");
+    document.getElementById(
+      "grafico-financeiro"
+    );
 
-  // ===== DESTRÓI GRÁFICO ANTIGO =====
+  // ===== REMOVE ANTIGO =====
   if (grafico) {
 
     grafico.destroy();
 
   }
 
-  // ===== NOVO GRÁFICO =====
+  // ===== NOVO =====
   grafico = new Chart(ctx, {
 
     type: "doughnut",
@@ -222,73 +281,160 @@ function atualizarGrafico(receitas, despesas) {
 
       }]
 
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false
+
     }
 
   });
 
 }
 
-// ===== BOTÃO META =====
-btnMeta.addEventListener("click", function() {
+// ======================================================
+// CRIAR META
+// ======================================================
 
-  metaFinanceira =
-    Number(metaInput.value);
+btnCriarMeta.addEventListener("click", function() {
+
+  // ===== DADOS =====
+  const nome =
+    nomeMeta.value;
+
+  const objetivo =
+    Number(objetivoMeta.value);
 
   // ===== VALIDAÇÃO =====
-  if (metaFinanceira <= 0) {
+  if (nome === "" || objetivo <= 0) {
 
-    alert("Digite uma meta válida.");
+    alert("Preencha os campos corretamente.");
 
     return;
 
   }
 
-  // ===== ATUALIZA TEXTO =====
-  metaValor.textContent =
-    `Meta atual: R$ ${metaFinanceira.toFixed(2)}`;
+  // ===== NOVA META =====
+  const novaMeta = {
+
+    id: Date.now(),
+
+    nome: nome,
+
+    objetivo: objetivo,
+
+    guardado: 0
+
+  };
+
+  // ===== ADICIONA =====
+  metas.push(novaMeta);
+
+  // ===== RENDERIZA =====
+  renderizarMetas();
+
+  // ===== LIMPA =====
+  nomeMeta.value = "";
+
+  objetivoMeta.value = "";
 
 });
 
-// ===== STATUS DA META =====
-function atualizarMeta() {
+// ======================================================
+// RENDERIZA METAS
+// ======================================================
 
-  // ===== SEM META =====
-  if (metaFinanceira <= 0) {
+function renderizarMetas() {
 
-    metaStatus.textContent =
-      "Nenhuma meta definida.";
+  // ===== LIMPA =====
+  listaMetas.innerHTML = "";
 
-    return;
+  // ===== PERCORRE =====
+  metas.forEach(function(meta) {
 
-  }
+    // ===== PORCENTAGEM =====
+    const porcentagem =
+      (meta.guardado / meta.objetivo) * 100;
 
-  // ===== PORCENTAGEM =====
-  const porcentagem =
-    (valorGuardado / metaFinanceira) * 100;
+    // ===== CRIA DIV =====
+    const div =
+      document.createElement("div");
 
-  // ===== META ATINGIDA =====
-  if (valorGuardado >= metaFinanceira) {
+    div.classList.add("item-meta");
 
-    metaStatus.textContent =
-      "🎉 Parabéns! Você completou sua caixinha.";
+    // ===== HTML =====
+    div.innerHTML = `
 
-  }
+      <div class="topo-meta">
 
-  // ===== META EM PROGRESSO =====
-  else {
+        <h3>
+          ${meta.nome}
+        </h3>
 
-    metaStatus.textContent =
-      `💰 Você completou ${porcentagem.toFixed(1)}% da meta.`;
+        <p>
+          R$ ${meta.guardado.toFixed(2)}
+          /
+          R$ ${meta.objetivo.toFixed(2)}
+        </p>
 
-  }
+      </div>
+
+      <div class="barra-container">
+
+        <div
+          class="barra-progresso"
+          style="width: ${porcentagem}%"
+        ></div>
+
+      </div>
+
+      <p>
+        ${porcentagem.toFixed(1)}% concluído
+      </p>
+
+      <div class="acoes-meta">
+
+        <input
+          type="number"
+          id="guardar-${meta.id}"
+          placeholder="Valor para guardar"
+        >
+
+        <button
+          onclick="guardarValor(${meta.id})"
+        >
+          Guardar
+        </button>
+
+      </div>
+
+    `;
+
+    // ===== ADICIONA =====
+    listaMetas.appendChild(div);
+
+  });
 
 }
 
-// ===== GUARDAR DINHEIRO =====
-btnGuardar.addEventListener("click", function() {
+// ======================================================
+// GUARDAR VALOR
+// ======================================================
 
+function guardarValor(id) {
+
+  // ===== INPUT =====
+  const input =
+    document.getElementById(
+      `guardar-${id}`
+    );
+
+  // ===== VALOR =====
   const valor =
-    Number(valorCofrinho.value);
+    Number(input.value);
 
   // ===== VALIDAÇÃO =====
   if (valor <= 0) {
@@ -299,35 +445,16 @@ btnGuardar.addEventListener("click", function() {
 
   }
 
-  // ===== SOMA NO COFRINHO =====
-  valorGuardado += valor;
-
-  // ===== ATUALIZA TEXTO =====
-  valorGuardadoTexto.textContent =
-    `Guardado: R$ ${valorGuardado.toFixed(2)}`;
-
-  // ===== LIMPA INPUT =====
-  valorCofrinho.value = "";
-
-  // ===== VERIFICA META =====
-  atualizarMeta();
-
-});
-
-// ===== EXCLUI TRANSAÇÃO =====
-function excluirTransacao(id) {
-
-  const indice =
-    transacoes.findIndex(
-      transacao => transacao.id === id
+  // ===== BUSCA META =====
+  const meta =
+    metas.find(
+      meta => meta.id === id
     );
 
-  // ===== REMOVE =====
-  transacoes.splice(indice, 1);
+  // ===== ADICIONA =====
+  meta.guardado += valor;
 
-  // ===== ATUALIZA =====
-  renderizarTransacoes();
-
-  atualizarResumo();
+  // ===== RENDERIZA =====
+  renderizarMetas();
 
 }

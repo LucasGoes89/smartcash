@@ -353,3 +353,64 @@ footer {
   }
 
 }
+
+/* ===== LISTA METAS ===== */
+#lista-metas {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* ===== ITEM META ===== */
+.item-meta {
+  background: #111827;
+  padding: 25px;
+  border-radius: 12px;
+
+  border-left: 6px solid #38bdf8;
+}
+
+/* ===== TOPO META ===== */
+.topo-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+/* ===== BARRA PROGRESSO ===== */
+.barra-container {
+  width: 100%;
+  height: 20px;
+
+  background: #1e293b;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  margin: 15px 0;
+}
+
+/* ===== BARRA INTERNA ===== */
+.barra-progresso {
+  height: 100%;
+  background: #22c55e;
+
+  width: 0%;
+
+  transition: 0.4s;
+}
+
+/* ===== BOTÕES META ===== */
+.acoes-meta {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.acoes-meta input {
+  flex: 1;
+}
