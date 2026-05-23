@@ -6,26 +6,105 @@
 
   <title>SmartCash | Dashboard Financeiro</title>
 
-  <meta name="description" content="Dashboard financeiro moderno desenvolvido com HTML, CSS e JavaScript.">
+  <meta
+    name="description"
+    content="Dashboard financeiro moderno desenvolvido com HTML, CSS e JavaScript."
+  >
 
   <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
 
+  <!-- HEADER -->
   <header>
-    <h1>💰 SmartCash</h1>
+    <div class="container header-content">
+      <h1>💰 SmartCash</h1>
+      <p>Seu controle financeiro inteligente</p>
+    </div>
   </header>
 
-  <main>
+  <!-- MAIN -->
+  <main class="container">
 
+    <!-- HERO -->
     <section id="hero">
-      <h2>Controle suas finanças de forma inteligente</h2>
-      <p>Gerencie receitas e despesas em tempo real.</p>
+      <h2>Controle total das suas finanças</h2>
+      <p>
+        Adicione receitas e despesas e acompanhe seu saldo em tempo real.
+      </p>
+    </section>
+
+    <!-- RESUMO FINANCEIRO -->
+    <section id="resumo">
+
+      <div class="card receita">
+        <h3>Entradas</h3>
+        <p id="total-receitas">R$ 0,00</p>
+      </div>
+
+      <div class="card despesa">
+        <h3>Saídas</h3>
+        <p id="total-despesas">R$ 0,00</p>
+      </div>
+
+      <div class="card saldo">
+        <h3>Saldo</h3>
+        <p id="saldo-total">R$ 0,00</p>
+      </div>
+
+    </section>
+
+    <!-- FORMULÁRIO -->
+    <section id="form-section">
+
+      <h2>Nova Transação</h2>
+
+      <form id="form-transacao">
+
+        <input
+          type="text"
+          id="descricao"
+          placeholder="Descrição"
+          required
+        >
+
+        <input
+          type="number"
+          id="valor"
+          placeholder="Valor"
+          required
+        >
+
+        <select id="tipo">
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
+        </select>
+
+        <button type="submit">
+          Adicionar Transação
+        </button>
+
+      </form>
+
+    </section>
+
+    <!-- TRANSAÇÕES -->
+    <section id="transacoes">
+
+      <h2>Histórico de Transações</h2>
+
+      <div id="lista-transacoes">
+
+        <!-- JS vai renderizar aqui -->
+
+      </div>
+
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2026 SmartCash</p>
   </footer>

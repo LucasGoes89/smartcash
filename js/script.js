@@ -1,1 +1,1 @@
-console.log("SmartCash iniciado com sucesso 🚀");
+console.log("SmartCash iniciado 🚀");
