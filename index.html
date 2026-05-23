@@ -18,11 +18,49 @@
 
   <!-- HEADER -->
   <header>
-    <div class="container header-content">
+
+  <div class="container header-content">
+
+    <div class="logo-area">
       <h1>💰 SmartCash</h1>
       <p>Seu controle financeiro inteligente</p>
     </div>
-  </header>
+
+    <nav>
+
+      <ul class="menu">
+
+        <li>
+          <a href="#resumo">
+            Resumo Financeiro
+          </a>
+        </li>
+
+        <li>
+          <a href="#metas">
+            Caixinha Financeira
+          </a>
+        </li>
+
+        <li>
+          <a href="#nova-transacao">
+            Nova Transação
+          </a>
+        </li>
+
+        <li>
+          <a href="#transacoes">
+            Histórico
+          </a>
+        </li>
+
+      </ul>
+
+    </nav>
+
+  </div>
+
+</header>
 
   <!-- MAIN -->
   <main class="container">
@@ -55,8 +93,64 @@
 
     </section>
 
+    <!-- GRÁFICO -->
+    <section id="grafico-section">
+
+    <h2>Resumo Financeiro</h2>
+
+    <div class="grafico-container">
+        <canvas id="grafico-financeiro"></canvas>
+    </div>
+
+    </section>
+
+    <!-- METAS -->
+    <section id="metas">
+
+    <h2>💰 Caixinha Financeira</h2>
+
+    <div class="meta-card">
+
+        <input
+        type="number"
+        id="meta-input"
+        placeholder="Defina sua meta"
+        >
+
+        <button id="btn-meta">
+        Criar Meta
+        </button>
+
+        <hr>
+
+        <input
+        type="number"
+        id="valor-cofrinho"
+        placeholder="Quanto deseja guardar?"
+        >
+
+        <button id="btn-guardar">
+        Guardar Dinheiro
+        </button>
+
+        <p id="meta-valor">
+        Meta atual: R$ 0,00
+        </p>
+
+        <p id="valor-guardado">
+        Guardado: R$ 0,00
+        </p>
+
+        <p id="meta-status">
+        Nenhuma meta definida.
+        </p>
+
+    </div>
+
+    </section>
+
     <!-- FORMULÁRIO -->
-    <section id="form-section">
+    <section id="nova-transacao">
 
       <h2>Nova Transação</h2>
 
@@ -134,7 +228,9 @@
   </div>
 
 </footer>
-  <script src="./js/script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/script.js"></script>
 
 </body>
 </html>

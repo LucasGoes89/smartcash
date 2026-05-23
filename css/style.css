@@ -1,3 +1,8 @@
+/* ===== SCROLL SUAVE ===== */
+html {
+  scroll-behavior: smooth;
+}
+
 /* ===== RESET ===== */
 * {
   margin: 0;
@@ -23,21 +28,49 @@ body {
 /* ===== HEADER ===== */
 header {
   background: #020617;
-  padding: 25px 0;
+  padding: 20px 0;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
+/* ===== HEADER CONTENT ===== */
 .header-content {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
 }
 
-.header-content h1 {
+/* ===== LOGO ===== */
+.logo-area h1 {
   font-size: 36px;
   margin-bottom: 5px;
 }
 
-.header-content p {
+.logo-area p {
   color: #94a3b8;
+}
+
+/* ===== MENU ===== */
+.menu {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.menu a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.menu a:hover {
+  color: #38bdf8;
 }
 
 /* ===== HERO ===== */
@@ -64,12 +97,14 @@ header {
   flex-wrap: wrap;
 }
 
+/* ===== CARDS ===== */
 .card {
   flex: 1;
   min-width: 250px;
   padding: 25px;
   border-radius: 12px;
   background: #1e293b;
+
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
@@ -82,6 +117,7 @@ header {
   font-weight: bold;
 }
 
+/* ===== CORES CARDS ===== */
 .receita {
   border-left: 6px solid #22c55e;
 }
@@ -94,24 +130,26 @@ header {
   border-left: 6px solid #38bdf8;
 }
 
-/* ===== FORM ===== */
-#form-section {
+/* ===== FORMULÁRIO ===== */
+#nova-transacao {
   background: #111827;
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 40px;
 }
 
-#form-section h2 {
+#nova-transacao h2 {
   margin-bottom: 20px;
 }
 
+/* ===== FORM ===== */
 #form-transacao {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
+/* ===== INPUTS ===== */
 input,
 select,
 button {
@@ -121,12 +159,14 @@ button {
   font-size: 16px;
 }
 
+/* ===== INPUTS E SELECT ===== */
 input,
 select {
   background: #1e293b;
   color: #ffffff;
 }
 
+/* ===== BOTÕES ===== */
 button {
   background: #22c55e;
   color: #ffffff;
@@ -137,6 +177,62 @@ button {
 
 button:hover {
   background: #16a34a;
+}
+
+/* ===== GRÁFICO ===== */
+#grafico-section {
+  margin-bottom: 40px;
+}
+
+.grafico-container {
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#grafico-financeiro {
+  max-height: 300px;
+}
+
+/* ===== METAS ===== */
+#metas {
+  margin-bottom: 40px;
+}
+
+.meta-card {
+  background: #111827;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.meta-card input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.meta-card hr {
+  margin: 20px 0;
+  border: 1px solid #1e293b;
+}
+
+/* ===== TEXTOS META ===== */
+#meta-valor {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+#valor-guardado {
+  margin-top: 10px;
+  color: #22c55e;
+  font-weight: bold;
+}
+
+#meta-status {
+  margin-top: 10px;
+  color: #94a3b8;
 }
 
 /* ===== TRANSAÇÕES ===== */
@@ -155,6 +251,7 @@ button:hover {
   background: #1e293b;
   padding: 20px;
   border-radius: 10px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -168,6 +265,28 @@ button:hover {
   border-left: 5px solid #ef4444;
 }
 
+/* ===== AÇÕES TRANSAÇÃO ===== */
+.acoes-transacao {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ===== BOTÃO EXCLUIR ===== */
+.btn-excluir {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-excluir:hover {
+  background: #dc2626;
+}
+
 /* ===== FOOTER ===== */
 footer {
   text-align: center;
@@ -176,28 +295,10 @@ footer {
   background: #020617;
 }
 
-/* ===== RESPONSIVIDADE ===== */
-@media (max-width: 768px) {
-
-  #hero h2 {
-    font-size: 28px;
-  }
-
-  .card {
-    min-width: 100%;
-  }
-
-  .transacao {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-}
-
 /* ===== LINKS SOCIAIS ===== */
 .social-links {
   margin-top: 10px;
+
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -211,4 +312,44 @@ footer {
 
 .social-links a:hover {
   color: #0ea5e9;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+
+  /* HEADER */
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* MENU */
+  .menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* HERO */
+  #hero h2 {
+    font-size: 28px;
+  }
+
+  /* CARDS */
+  .card {
+    min-width: 100%;
+  }
+
+  /* TRANSAÇÕES */
+  .transacao {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* AÇÕES */
+  .acoes-transacao {
+    width: 100%;
+    justify-content: space-between;
+  }
+
 }
