@@ -194,3 +194,21 @@ footer {
   }
 
 }
+
+/* ===== LINKS SOCIAIS ===== */
+.social-links {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-links a {
+  color: #38bdf8;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  color: #0ea5e9;
+}
